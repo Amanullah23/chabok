@@ -69,211 +69,202 @@ export default function Footer() {
       borderTop: "1px solid rgba(255,255,255,0.06)",
       padding: "64px 24px 28px",
     }}>
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
 
-        {/* Top grid */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr 1fr 1fr",
-          gap: "40px",
-          marginBottom: "52px",
-        }}>
+      <style>{`
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr 1fr;
+          gap: 40px;
+          margin-bottom: 52px;
+          max-width: 900px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .footer-links-grid {
+          display: contents;
+        }
+        @media (max-width: 768px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 36px;
+          }
+          .footer-brand {
+            grid-column: 1 / -1;
+          }
+        }
+        @media (max-width: 480px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+          }
+        }
+        .footer-link {
+          font-size: 13px;
+          color: rgba(100,116,139,1);
+          text-decoration: none;
+          transition: color 0.2s ease;
+          display: block;
+          padding: 3px 0;
+        }
+        .footer-link:hover { color: white; }
+        .footer-social {
+          width: 32px;
+          height: 32px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          flex-shrink: 0;
+        }
+        .footer-social:hover {
+          background: rgba(5,150,105,0.15);
+          border-color: rgba(5,150,105,0.3);
+        }
+      `}</style>
 
-          {/* Brand column */}
-          <div>
-            <Link href="/" style={{
+      <div className="footer-grid">
+
+        {/* Brand */}
+        <div className="footer-brand">
+          <Link href="/" style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            textDecoration: "none",
+            marginBottom: "16px",
+          }}>
+            <div style={{
+              width: "30px",
+              height: "30px",
+              background: "#059669",
+              borderRadius: "50%",
               display: "flex",
               alignItems: "center",
-              gap: "8px",
-              textDecoration: "none",
-              marginBottom: "16px",
+              justifyContent: "center",
+              boxShadow: "0 0 10px rgba(5,150,105,0.5)",
+              flexShrink: 0,
             }}>
-              <div style={{
-                width: "30px",
-                height: "30px",
-                background: "#059669",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 0 10px rgba(5,150,105,0.5)",
-              }}>
-                <ZapIcon />
-              </div>
-              <span style={{ fontSize: "16px", fontWeight: 600, color: "white" }}>Chabok</span>
-            </Link>
+              <ZapIcon />
+            </div>
+            <span style={{ fontSize: "16px", fontWeight: 600, color: "white" }}>Chabok</span>
+          </Link>
 
-            <p style={{
-              fontSize: "13px",
-              color: "rgba(100,116,139,1)",
-              lineHeight: 1.7,
-              margin: "0 0 20px",
-              maxWidth: "220px",
-            }}>
-              Share files at lightning speed. No cloud. No internet. No limits.
-            </p>
+          <p style={{
+            fontSize: "13px",
+            color: "rgba(100,116,139,1)",
+            lineHeight: 1.7,
+            margin: "0 0 20px",
+            maxWidth: "220px",
+          }}>
+            Share files at lightning speed. No cloud. No internet. No limits.
+          </p>
 
-            {/* Social icons */}
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-              {socials.map((s) => (
-                <Link
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  aria-label={s.label}
-                  style={{
-                    width: "32px",
-                    height: "32px",
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    borderRadius: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textDecoration: "none",
-                    transition: "all 0.2s ease",
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = "rgba(5,150,105,0.15)";
-                    el.style.borderColor = "rgba(5,150,105,0.3)";
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.background = "rgba(255,255,255,0.05)";
-                    el.style.borderColor = "rgba(255,255,255,0.08)";
-                  }}
-                >
-                  {s.icon}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Product links */}
-          <div>
-            <div style={{
-              fontSize: "12px",
-              fontWeight: 600,
-              color: "white",
-              letterSpacing: "0.5px",
-              marginBottom: "16px",
-            }}>
-              PRODUCT
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {productLinks.map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  style={{
-                    fontSize: "13px",
-                    color: "rgba(100,116,139,1)",
-                    textDecoration: "none",
-                    transition: "color 0.2s ease",
-                  }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "white"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(100,116,139,1)"}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Developer links */}
-          <div>
-            <div style={{
-              fontSize: "12px",
-              fontWeight: 600,
-              color: "white",
-              letterSpacing: "0.5px",
-              marginBottom: "16px",
-            }}>
-              DEVELOPERS
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {devLinks.map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  target={l.href.startsWith("http") ? "_blank" : undefined}
-                  style={{
-                    fontSize: "13px",
-                    color: "rgba(100,116,139,1)",
-                    textDecoration: "none",
-                    transition: "color 0.2s ease",
-                  }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "white"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(100,116,139,1)"}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Legal links */}
-          <div>
-            <div style={{
-              fontSize: "12px",
-              fontWeight: 600,
-              color: "white",
-              letterSpacing: "0.5px",
-              marginBottom: "16px",
-            }}>
-              LEGAL
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-              {legalLinks.map((l) => (
-                <Link
-                  key={l.label}
-                  href={l.href}
-                  target={l.href.startsWith("http") ? "_blank" : undefined}
-                  style={{
-                    fontSize: "13px",
-                    color: "rgba(100,116,139,1)",
-                    textDecoration: "none",
-                    transition: "color 0.2s ease",
-                  }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = "white"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "rgba(100,116,139,1)"}
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            {socials.map((s) => (
+              <Link key={s.label} href={s.href} target="_blank" aria-label={s.label} className="footer-social">
+                {s.icon}
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div style={{
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          paddingTop: "24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "12px",
-        }}>
-          <span style={{ fontSize: "12px", color: "rgba(71,85,105,1)" }}>
-            © 2026 Chabok. Open source under MIT License.
-          </span>
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <div style={{
-              width: "6px",
-              height: "6px",
-              background: "#059669",
-              borderRadius: "50%",
-              boxShadow: "0 0 6px rgba(5,150,105,0.8)",
-            }} />
-            <span style={{ fontSize: "12px", color: "rgba(71,85,105,1)" }}>
-              All systems operational
-            </span>
+        {/* Product */}
+        <div>
+          <div style={{
+            fontSize: "12px",
+            fontWeight: 600,
+            color: "white",
+            letterSpacing: "0.5px",
+            marginBottom: "14px",
+          }}>
+            PRODUCT
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+            {productLinks.map((l) => (
+              <Link key={l.label} href={l.href} className="footer-link">{l.label}</Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Developers */}
+        <div>
+          <div style={{
+            fontSize: "12px",
+            fontWeight: 600,
+            color: "white",
+            letterSpacing: "0.5px",
+            marginBottom: "14px",
+          }}>
+            DEVELOPERS
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+            {devLinks.map((l) => (
+              <Link
+                key={l.label}
+                href={l.href}
+                target={l.href.startsWith("http") ? "_blank" : undefined}
+                className="footer-link"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Legal */}
+        <div>
+          <div style={{
+            fontSize: "12px",
+            fontWeight: 600,
+            color: "white",
+            letterSpacing: "0.5px",
+            marginBottom: "14px",
+          }}>
+            LEGAL
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+            {legalLinks.map((l) => (
+              <Link key={l.label} href={l.href} className="footer-link">{l.label}</Link>
+            ))}
           </div>
         </div>
 
       </div>
+
+      {/* Bottom bar */}
+      <div style={{
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+        paddingTop: "24px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: "12px",
+        maxWidth: "900px",
+        margin: "0 auto",
+      }}>
+        <span style={{ fontSize: "12px", color: "rgba(71,85,105,1)" }}>
+          © 2026 Chabok. Open source under MIT License.
+        </span>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div style={{
+            width: "6px",
+            height: "6px",
+            background: "#059669",
+            borderRadius: "50%",
+            boxShadow: "0 0 6px rgba(5,150,105,0.8)",
+          }} />
+          <span style={{ fontSize: "12px", color: "rgba(71,85,105,1)" }}>
+            All systems operational
+          </span>
+        </div>
+      </div>
+
     </footer>
   );
 }
