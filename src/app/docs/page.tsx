@@ -297,53 +297,107 @@ export default function DocsPage() {
   return (
     <>
       <Navbar />
+
+      <style>{`
+        .docs-layout {
+          display: grid;
+          grid-template-columns: 220px 1fr;
+          gap: 48px;
+          align-items: start;
+          max-width: 980px;
+          margin: 0 auto;
+          padding: 0 24px;
+        }
+        .docs-sidebar {
+          position: sticky;
+          top: 100px;
+        }
+        .docs-sidebar-inner {
+          display: flex;
+          flex-direction: column;
+        }
+        @media (max-width: 768px) {
+          .docs-layout {
+            grid-template-columns: 1fr;
+            gap: 0;
+          }
+          .docs-sidebar {
+            position: static;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 28px;
+          }
+          .docs-sidebar-inner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+          }
+        }
+        @media (max-width: 480px) {
+          .docs-sidebar-inner {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+      `}</style>
+
       <main style={{ minHeight: "100vh", paddingTop: "100px", paddingBottom: "80px" }}>
-        <div style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "220px 1fr", gap: "48px", alignItems: "start" }}>
+        <div className="docs-layout">
 
           {/* Sidebar */}
-          <div style={{ position: "sticky", top: "100px" }}>
-            {sidebarSections.map((section) => (
-              <div key={section.title} style={{ marginBottom: "28px" }}>
-                <div style={{ fontSize: "11px", fontWeight: 600, color: "rgba(71,85,105,1)", letterSpacing: "1px", marginBottom: "10px" }}>
-                  {section.title}
+          <div className="docs-sidebar">
+            <div className="docs-sidebar-inner">
+              {sidebarSections.map((section) => (
+                <div key={section.title} style={{ marginBottom: "20px" }}>
+                  <div style={{
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    color: "rgba(71,85,105,1)",
+                    letterSpacing: "1px",
+                    marginBottom: "8px",
+                  }}>
+                    {section.title}
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+                    {section.items.map((item) => (
+                      <button
+                        key={item}
+                        onClick={() => setActive(item)}
+                        style={{
+                          padding: "7px 12px",
+                          background: active === item ? "rgba(5,150,105,0.12)" : "transparent",
+                          border: active === item ? "1px solid rgba(5,150,105,0.25)" : "1px solid transparent",
+                          borderRadius: "8px",
+                          fontSize: "13px",
+                          color: active === item ? "#34D399" : "rgba(100,116,139,1)",
+                          fontWeight: active === item ? 500 : 400,
+                          cursor: "pointer",
+                          textAlign: "left",
+                          transition: "all 0.15s ease",
+                          fontFamily: "inherit",
+                          width: "100%",
+                        }}
+                        onMouseEnter={e => {
+                          if (active !== item) {
+                            (e.currentTarget as HTMLElement).style.color = "white";
+                            (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
+                          }
+                        }}
+                        onMouseLeave={e => {
+                          if (active !== item) {
+                            (e.currentTarget as HTMLElement).style.color = "rgba(100,116,139,1)";
+                            (e.currentTarget as HTMLElement).style.background = "transparent";
+                          }
+                        }}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                  {section.items.map((item) => (
-                    <button
-                      key={item}
-                      onClick={() => setActive(item)}
-                      style={{
-                        padding: "7px 12px",
-                        background: active === item ? "rgba(5,150,105,0.12)" : "transparent",
-                        border: active === item ? "1px solid rgba(5,150,105,0.25)" : "1px solid transparent",
-                        borderRadius: "8px",
-                        fontSize: "13px",
-                        color: active === item ? "#34D399" : "rgba(100,116,139,1)",
-                        fontWeight: active === item ? 500 : 400,
-                        cursor: "pointer",
-                        textAlign: "left",
-                        transition: "all 0.15s ease",
-                        fontFamily: "inherit",
-                      }}
-                      onMouseEnter={e => {
-                        if (active !== item) {
-                          (e.currentTarget as HTMLElement).style.color = "white";
-                          (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
-                        }
-                      }}
-                      onMouseLeave={e => {
-                        if (active !== item) {
-                          (e.currentTarget as HTMLElement).style.color = "rgba(100,116,139,1)";
-                          (e.currentTarget as HTMLElement).style.background = "transparent";
-                        }
-                      }}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Main content */}
@@ -360,7 +414,14 @@ export default function DocsPage() {
               <span style={{ fontSize: "11px", color: "#34D399", fontWeight: 500, letterSpacing: "0.5px" }}>DOCS</span>
             </div>
 
-            <h1 style={{ fontSize: "32px", fontWeight: 700, color: "white", letterSpacing: "-0.8px", margin: "0 0 16px", lineHeight: 1.2 }}>
+            <h1 style={{
+              fontSize: "clamp(24px, 4vw, 32px)",
+              fontWeight: 700,
+              color: "white",
+              letterSpacing: "-0.8px",
+              margin: "0 0 16px",
+              lineHeight: 1.2,
+            }}>
               {page.title}
             </h1>
 
@@ -369,7 +430,14 @@ export default function DocsPage() {
             </div>
 
             {/* Prev / Next */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginTop: "40px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "28px" }}>
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "12px",
+              marginTop: "40px",
+              borderTop: "1px solid rgba(255,255,255,0.06)",
+              paddingTop: "28px",
+            }}>
               <button
                 onClick={() => page.prev && setActive(page.prev)}
                 disabled={!page.prev}
@@ -421,6 +489,7 @@ export default function DocsPage() {
               </button>
             </div>
           </motion.div>
+
         </div>
       </main>
       <Footer />
