@@ -54,7 +54,7 @@ const platforms = [
     updated: "Jun 2026",
     eta: null,
     action: "Download APK",
-    href: "#",
+    href: "https://github.com/Amanullah23/chabok/releases/download/v1.0.0/chabok-v1.0.0.apk",
   },
 {
   icon: <WindowsIcon />,
@@ -66,7 +66,7 @@ const platforms = [
   updated: "Jun 2026",
   eta: null,
   action: "Download",
-  href: "/chabok-v1.0.0-windows.zip",
+  href: "https://github.com/Amanullah23/chabok/releases/download/v1.0.0/chabok-v1.0.0-windows.zip",
 },
   {
     icon: <IOSIcon />,
